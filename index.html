@@ -1,0 +1,726 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yisus A.R. - Sobre Mí</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #050505;
+      color: #ffffff;
+      line-height: 1.6;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .about-wrapper {
+      --profile-card-bg: #121212;
+      --profile-text-primary: #f2f2f7;
+      --profile-text-secondary: #d1d1d6;
+      --profile-text-muted: #8e8e93;
+      --tag-bg: #1c1c1e;
+      --kpi-bg: #18181a;
+      --border-color: #2c2c2e;
+      --shadow: 0 20px 40px rgba(0,0,0,0.8);
+      --icon-color: #f2f2f7;
+      --btn-bg: #ffffff;
+      --btn-text: #000000;
+      --btn-hover: #e5e5ea;
+      --footer-bg: #18181a;
+      --player-bg: #000000;
+      --player-item-bg: #18181a;
+      --player-item-hover: #27272a;
+      --player-item-active: #3f3f46;
+      --player-text: #ffffff;
+      --player-text-muted: #a1a1aa;
+
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .about-wrapper[data-theme="light"] {
+      --profile-card-bg: #ffffff;
+      --profile-text-primary: #1c1c1e;
+      --profile-text-secondary: #3a3a3c;
+      --profile-text-muted: #8e8e93;
+      --tag-bg: #f2f2f7;
+      --kpi-bg: #fafafa;
+      --border-color: #f2f2f7;
+      --shadow: 0 20px 40px rgba(0,0,0,0.3);
+      --icon-color: #1c1c1e;
+      --btn-bg: #000000;
+      --btn-text: #ffffff;
+      --btn-hover: #2c2c2e;
+      --footer-bg: #fafafa;
+    }
+
+    .profile-card {
+      background-color: var(--profile-card-bg);
+      width: 100%;
+      max-width: 480px;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+      color: var(--profile-text-primary);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .banner {
+      height: 450px;
+      position: relative;
+      background-image: url('https://i.postimg.cc/XJG6W0Cz/Picsart-26-08-25-02-33-12-907.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .banner-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+    }
+
+    .top-icons {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 2;
+    }
+
+    .top-icons a, .theme-toggle-btn {
+      color: #ffffff;
+      font-size: 16px;
+      text-decoration: none;
+      opacity: 0.9;
+      transition: opacity 0.2s, transform 0.2s;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+
+    .top-icons a:hover, .theme-toggle-btn:hover {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .profile-header {
+      padding: 0 24px;
+      position: relative;
+      margin-top: -45px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 20px;
+    }
+
+    .avatar-container {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background-color: #000000;
+      border: 3px solid var(--profile-card-bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 2;
+      flex-shrink: 0;
+    }
+
+    .btn-follow {
+      background-color: var(--btn-bg);
+      color: var(--btn-text);
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.2s;
+    }
+
+    .btn-follow:hover {
+      background-color: var(--btn-hover);
+    }
+
+    .profile-body {
+      padding: 0 24px 24px 24px;
+    }
+
+    .user-name {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--profile-text-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .verified-badge {
+      color: var(--profile-text-primary);
+      font-size: 15px;
+    }
+
+    .user-handle {
+      font-size: 13.5px;
+      color: var(--profile-text-muted);
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
+
+    .bio {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--profile-text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .bio p {
+      margin-bottom: 12px;
+    }
+
+    .bio strong {
+      color: var(--profile-text-primary);
+    }
+
+    .interests-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 14px 0;
+    }
+
+    .tag {
+      background-color: var(--tag-bg);
+      color: var(--profile-text-primary);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tag i {
+      font-size: 11px;
+      color: var(--profile-text-secondary);
+    }
+
+    .kpi-box {
+      background-color: var(--kpi-bg);
+      border-left: 2px solid var(--profile-text-primary);
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin-top: 14px;
+      font-size: 12.5px;
+      color: var(--profile-text-secondary);
+    }
+
+    .kpi-box strong {
+      color: var(--profile-text-primary);
+    }
+
+    .divider {
+      height: 1px;
+      background-color: var(--border-color);
+      margin: 22px 0;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--profile-text-primary);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title i {
+      font-size: 14px;
+      color: var(--icon-color);
+    }
+
+    .spotify-profile-container {
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      background-color: #000000;
+    }
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      height: 240px;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      background-color: #000000;
+      touch-action: pan-y;
+    }
+
+    .carousel-track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .carousel-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 10px 14px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 10px;
+      right: 12px;
+      display: flex;
+      gap: 4px;
+      z-index: 3;
+      max-width: 80%;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .dot-carousel {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .dot-carousel.active {
+      background-color: #ffffff;
+      transform: scale(1.3);
+    }
+
+    .about-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .about-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--profile-text-secondary);
+    }
+
+    .about-item i {
+      font-size: 13px;
+      color: var(--icon-color);
+      margin-top: 2px;
+      width: 16px;
+      text-align: center;
+    }
+
+    .about-item-label {
+      font-weight: 600;
+      color: var(--profile-text-primary);
+    }
+
+    .clean-player-container {
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      background-color: var(--player-bg);
+      border: 1px solid var(--border-color);
+    }
+
+    .clean-video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      max-height: 580px;
+      background-color: #000000;
+      overflow: hidden;
+    }
+
+    .clean-video-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .clean-playlist {
+      max-height: 200px;
+      overflow-y: auto;
+      background-color: var(--player-bg);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 4px;
+    }
+
+    .playlist-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background-color: var(--player-item-bg);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      color: var(--player-text);
+      font-size: 12.5px;
+    }
+
+    .playlist-item:hover {
+      background-color: var(--player-item-hover);
+    }
+
+    .playlist-item.active {
+      background-color: var(--player-item-active);
+      font-weight: 600;
+    }
+
+    .play-icon {
+      width: 14px;
+      height: 14px;
+      fill: var(--player-text-muted);
+    }
+
+    .playlist-item.active .play-icon {
+      fill: var(--player-text);
+    }
+
+    .card-footer {
+      text-align: center;
+      padding: 16px 24px;
+      background-color: var(--footer-bg);
+      border-top: 1px solid var(--border-color);
+      font-size: 11.5px;
+      color: var(--profile-text-muted);
+    }
+
+    .card-footer strong {
+      color: var(--profile-text-primary);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <main class="about-wrapper">
+    <div class="profile-card">
+      <div class="banner">
+        <div class="banner-overlay"></div>
+        <div class="top-icons">
+          <a href="https://chat.whatsapp.com/KYFqAgQBwL8ICBsEwT56lA?s=cl&p=a&mlu=4" target="_blank" title="Comunidad de WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+          <button class="theme-toggle-btn" id="themeToggle" title="Cambiar tema">
+            <i class="fa-regular fa-moon" id="themeIcon"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="profile-header">
+        <div class="avatar-container">
+          <img src="https://i.postimg.cc/Vvfv46T9/Picsart-26-08-25-02-30-05-569.jpg" alt="Foto de perfil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+        </div>
+        <a href="https://www.tiktok.com/@yisusarys" target="_blank" class="btn-follow">
+          <i class="fa-brands fa-tiktok"></i> Seguir
+        </a>
+      </div>
+
+      <div class="profile-body">
+        <div class="user-name">
+          Yisus A.R. <i class="fa-solid fa-circle-check verified-badge"></i>
+        </div>
+        <div class="user-handle">@yisusarys</div>
+
+        <div class="bio">
+          <p><strong>Traficante de Talento Humano</strong> | Especialista en colocar humanos dentro de corporaciones a cambio de quincenas.</p>
+          <p>Godín de RH por decisión estratégica del capitalismo: desarrollando competencias profesionales antes de tener permitido desarrollar una personalidad.</p>
+          <p><strong>Misión secundaria:</strong> programación, diseño web y edición de fotografía y video. Básicamente, intentando recordar que también tengo habilidades útiles fuera de las juntas que pudieron ser un correo.</p>
+          <p>Actualmente enfocado en generación de ingresos, acumulación de experiencias y documentación de evidencia, con el objetivo de ejecutar una futura transición voluntaria fuera de esta simulación corporativa.</p>
+          <p>Optimizando el perfil de LinkedIn mientras planeo mi escape del sistema. Todo perfectamente alineado a objetivos.</p>
+
+          <div class="interests-tags">
+            <span class="tag"><i class="fa-regular fa-image"></i> Fotografía</span>
+            <span class="tag"><i class="fa-solid fa-film"></i> Cine</span>
+            <span class="tag"><i class="fa-solid fa-compact-disc"></i> Música</span>
+            <span class="tag"><i class="fa-regular fa-compass"></i> Viajes</span>
+          </div>
+
+          <div class="kpi-box">
+            <div><strong>KPI principal:</strong> sobrevivir al Q4.</div>
+            <div><strong>Visión:</strong> escapar del sistema.</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section-title">
+          <i class="fa-brands fa-spotify"></i> Mi Playlist
+        </div>
+        <div class="spotify-profile-container">
+          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0yvpDQ6CnatKZVhPKPYFez?si=_NHgwZMqTE6uZmYhV6uhXQ&utmutm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section-title">
+          <i class="fa-regular fa-camera"></i> Galería
+        </div>
+        
+        <div class="carousel-container" id="carouselContainer">
+          <div class="carousel-track" id="carouselTrack">
+            <div class="carousel-slide">
+              <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80" alt="Foto 1">
+              <div class="carousel-caption">01. Perspectiva & Encuadre</div>
+            </div>
+            <div class="carousel-slide">
+              <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80" alt="Foto 2">
+              <div class="carousel-caption">02. Exploración Urbana</div>
+            </div>
+            <div class="carousel-slide">
+              <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80" alt="Foto 3">
+              <div class="carousel-caption">03. Ruta sin rumbo fijo</div>
+            </div>
+            <div class="carousel-slide">
+              <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Foto 4">
+              <div class="carousel-caption">04. Atardeceres & Costas</div>
+            </div>
+            <div class="carousel-slide">
+              <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80" alt="Foto 5">
+              <div class="carousel-caption">05. Montañas y Noches</div>
+            </div>
+          </div>
+
+          <div class="carousel-dots" id="carouselDots">
+            <span class="dot-carousel active" data-index="0"></span>
+            <span class="dot-carousel" data-index="1"></span>
+            <span class="dot-carousel" data-index="2"></span>
+            <span class="dot-carousel" data-index="3"></span>
+            <span class="dot-carousel" data-index="4"></span>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section-title">
+          <i class="fa-regular fa-user"></i> Datos Sobre Mí
+        </div>
+        
+        <div class="about-list">
+          <div class="about-item">
+            <i class="fa-regular fa-circle-play"></i>
+            <div><span class="about-item-label">Fin de semana ideal:</span> Ver películas épicas, escuchar buena música y cero pendientes.</div>
+          </div>
+          <div class="about-item">
+            <i class="fa-regular fa-building"></i>
+            <div><span class="about-item-label">Área laboral:</span> Recursos Humanos (apoyando personas, escuchando y siendo parte de soluciones).</div>
+          </div>
+          <div class="about-item">
+            <i class="fa-solid fa-sliders"></i>
+            <div><span class="about-item-label">Gusto musical:</span> Sin género en particular; si la canción transmite algo, va directo a la playlist.</div>
+          </div>
+          <div class="about-item">
+            <i class="fa-regular fa-compass"></i>
+            <div><span class="about-item-label">Mejor viaje:</span> La primera vez que salí de mi ciudad sin un rumbo fijo (libertad y aventuras).</div>
+          </div>
+          <div class="about-item">
+            <i class="fa-solid fa-utensils"></i>
+            <div><span class="about-item-label">Cena especial:</span> Con mi abuela (para volver a escuchar sus historias).</div>
+          </div>
+          <div class="about-item">
+            <i class="fa-regular fa-face-smile"></i>
+            <div><span class="about-item-label">Percepción vs Realidad:</span> Suelen pensar que soy reservado o serio, pero solo me tomo tiempo para agarrar confianza; luego soy leal a morir.</div>
+          </div>
+          <div class="about-item">
+            <i class="fa-solid fa-seedling"></i>
+            <div><span class="about-item-label">Estilo de vida:</span> Un poco de planear lo importante, pero siempre dejando espacio para que las cosas fluyan.</div>
+          </div>
+          <div class="about-item">
+            <i class="fa-regular fa-heart"></i>
+            <div><span class="about-item-label">En una pareja busca:</span> Acompañamiento, lealtad, apoyo y reírse mucho en equipo.</div>
+          </div>
+          <div class="about-item">
+            <i class="fa-solid fa-mountain"></i>
+            <div><span class="about-item-label">Lección de vida:</span> Nada es para siempre. La vida y las personas son una montaña rusa: hay que disfrutar los altos y aprender de los bajos.</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section-title">
+          <i class="fa-brands fa-tiktok"></i> Playlist de TikTok
+        </div>
+        <div class="clean-player-container">
+          <div class="clean-video-frame">
+            <iframe id="embeddedTikTok" src="https://www.tiktok.com/embed/v2/7676657692445822216?hide_text=1" allow="fullscreen; autoplay; encrypted-media"></iframe>
+          </div>
+          <div class="clean-playlist">
+            <div class="playlist-item active" onclick="playTikTok('7676657692445822216', this)">
+              <span>01. El Bien y El Mal</span>
+              <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="playlist-item" onclick="playTikTok('7671882209099287815', this)">
+              <span>02. La Sociedad</span>
+              <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="playlist-item" onclick="playTikTok('7666893344252939527', this)">
+              <span>03. EL Amor</span>
+              <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="playlist-item" onclick="playTikTok('7664055928773168402', this)">
+              <span>04. No Eres Especial</span>
+              <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="playlist-item" onclick="playTikTok('7661443692825283848', this)">
+              <span>05. La Vida</span>
+              <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="playlist-item" onclick="playTikTok('7656133249932070162', this)">
+              <span>06. El Fracaso</span>
+              <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="playlist-item" onclick="playTikTok('7674764640747883784', this)">
+              <span>07. La Trampa</span>
+              <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card-footer">
+        &copy; Creado por <strong>Yisus A.R.</strong> &bull; Todos los derechos reservados
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Reproductor TikTok
+    function playTikTok(videoId, element) {
+      const iframe = document.getElementById('embeddedTikTok');
+      iframe.src = `https://www.tiktok.com/embed/v2/${videoId}?hide_text=1`;
+
+      document.querySelectorAll('.playlist-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      element.classList.add('active');
+    }
+
+    // Cambio de Tema Claro/Oscuro
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const aboutWrapper = document.querySelector('.about-wrapper');
+
+    themeToggleBtn.addEventListener('click', () => {
+      const currentTheme = aboutWrapper.getAttribute('data-theme');
+      if (currentTheme === 'light') {
+        aboutWrapper.removeAttribute('data-theme');
+        themeIcon.className = 'fa-regular fa-moon';
+      } else {
+        aboutWrapper.setAttribute('data-theme', 'light');
+        themeIcon.className = 'fa-regular fa-sun';
+      }
+    });
+
+    // Carrusel
+    const track = document.getElementById('carouselTrack');
+    const slides = Array.from(track.children);
+    const dots = document.querySelectorAll('.dot-carousel');
+    let currentIndex = 0;
+    let autoPlayTimer;
+
+    function updateCarousel(index) {
+      if (index < 0) index = slides.length - 1;
+      if (index >= slides.length) index = 0;
+      currentIndex = index;
+
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
+      });
+    }
+
+    function startAutoPlay() {
+      autoPlayTimer = setInterval(() => {
+        updateCarousel(currentIndex + 1);
+      }, 4500);
+    }
+
+    function resetAutoPlay() {
+      clearInterval(autoPlayTimer);
+      startAutoPlay();
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', (e) => {
+        const index = parseInt(e.target.dataset.index);
+        updateCarousel(index);
+        resetAutoPlay();
+      });
+    });
+
+    startAutoPlay();
+  </script>
+</body>
+</html>
